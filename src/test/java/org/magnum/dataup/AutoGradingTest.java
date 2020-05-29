@@ -151,13 +151,13 @@ public class AutoGradingTest {
 		
 		Response response = videoSvc.getData(received.getId());
 		assertEquals(200, response.getStatus());
-		
+
 		InputStream videoData = response.getBody().in();
 		byte[] originalFile = IOUtils.toByteArray(new FileInputStream(testVideoData));
 		byte[] retrievedFile = IOUtils.toByteArray(videoData);
 		assertTrue(Arrays.equals(originalFile, retrievedFile));
 	}
-	
+
 	@Rubric(
 			value="Requests for non-existant video data return a 404",
 			goal="The goal of this evaluation is to ensure that your Spring controller(s) "

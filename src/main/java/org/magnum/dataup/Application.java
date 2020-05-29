@@ -19,6 +19,9 @@ package org.magnum.dataup;
 
 import javax.servlet.MultipartConfigElement;
 
+import org.apache.commons.io.IOUtils;
+import org.magnum.dataup.model.Video;
+import org.magnum.dataup.model.VideoStatus;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
@@ -26,6 +29,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.unit.DataSize;
+import retrofit.RestAdapter;
+import retrofit.client.Response;
+import retrofit.mime.TypedFile;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Arrays;
+import java.util.UUID;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 // This annotation tells Spring to auto-wire your application
 @EnableAutoConfiguration
@@ -41,7 +57,7 @@ public class Application {
 	private static final int MAX_REQUEST_SIZE_IN_MB = 150;
 
 	// The entry point to the application.
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// This call tells spring to launch the application and
 		// use the configuration specified in LocalApplication to
 		// configure the application's components.
